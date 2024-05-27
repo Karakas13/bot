@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters.state import StateFilter
 from states import UserStates
+from key_board import get_keyboard
 
 from config import TOKEN
 
@@ -16,7 +17,8 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def send_welcome(massage: types.Message, state:FSMContext):
-    await bot.send_message(massage.chat.id, "Привет! Я эхо-бот")
+    kb = get_keyboard(["/test"])
+    await bot.send_message(massage.chat.id, "Привет! Я эхо-бот", reply_markup=kb)
     await  state.set_state(UserStates.BASE)
 
 
